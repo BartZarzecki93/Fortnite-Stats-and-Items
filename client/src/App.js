@@ -2,8 +2,11 @@ import React from 'react';
 import './App.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import logo from './logo.png';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Outfits from './components/outfits';
+import Outfit from './components/outfit';
+import Navbar from './components/navbar';
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql'
@@ -12,19 +15,17 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className='container'>
-        <img
-          src={logo}
-          alt='Fortinite'
-          style={{
-            width: 150,
-            display: 'block',
-            marginLeft: ' 20px ',
-            marginTop: '20px'
-          }}
-        />
-        <Outfits />
-      </div>
+      <Router>
+        <Navbar />
+        <div class='introview'>
+          <div className='container' style={{ height: '800px' }}>
+            <br />
+
+            <Route exact path='/outfits' component={Outfits} />
+            <Route exact path='/outfit/:identifier' component={Outfit} />
+          </div>
+        </div>
+      </Router>
     </ApolloProvider>
   );
 }

@@ -1,0 +1,24 @@
+.introview {
+  background-image: url(../src/1.jpeg);
+  /* Full height */
+  height: auto;
+  width: auto;
+
+  /* Center and scale the image nicely */
+  background-position: absolute;
+
+  background-size: cover;
+}
+
+.Title {
+  text-align: center;
+  font-size: 400%;
+  color: white;
+  font-family: comic;
+  margin-top: 100px;
+  margin-left: -420px;
+}
+
+.bg {
+  color: grey;
+}
