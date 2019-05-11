@@ -5,11 +5,11 @@ import '../App.css';
 export default class navbar extends Component {
   render() {
     return (
-      <nav class='navbar navbar-expand-lg navbar-dark bg-primary'>
+      <nav class='navbar navbar-expand-lg navbar-dark bg-primary fixed-top'>
         <img
           class='navbar-brand'
           alt='fortnite'
-          href='http://localhost:3000'
+          href='http://localhost:3000/home'
           src={logo}
           style={{
             width: 60,
@@ -33,7 +33,7 @@ export default class navbar extends Component {
         <div class='collapse navbar-collapse' id='navbarColor01'>
           <ul class='navbar-nav mr-auto'>
             <li class='nav-item active'>
-              <a class='nav-link' href='/'>
+              <a class='nav-link' href='/home'>
                 Home <span class='sr-only'>(current)</span>
               </a>
             </li>

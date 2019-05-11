@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import '../App.css';
 
 export default function outfitItem({
   Outfit: {
@@ -18,7 +19,7 @@ export default function outfitItem({
       class='card mb-3'
       style={{
         width: '40%',
-        height: '100%',
+        height: '70%',
         display: 'block',
         alignItems: 'center'
       }}
@@ -38,10 +39,11 @@ export default function outfitItem({
 
         <ul class='list-group list-group-flush'>
           <li class='list-group-item text-center'>Type: {type}</li>
-          <li class='list-group-item text-center'>Cost: {cost}</li>
+          <li class='list-group-item text-center'>Cost: {cost} V-bucks</li>
           <li class='list-group-item text-center'>Rarity: {rarity}</li>
         </ul>
         <br />
+
         <Link
           to={`/outfit/${identifier}`}
           className='btn btn-primary mx-auto d-block'
