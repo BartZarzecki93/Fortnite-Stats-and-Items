@@ -28,6 +28,7 @@ export default function outfitItem({
       <br />
       <img
         class='mx-auto d-block'
+        alt='img'
         style={{
           width: 180,
           height: 150

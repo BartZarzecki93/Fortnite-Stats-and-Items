@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
+
+import { Form } from 'react-bootstrap';
+
+import '../App.css';
+
 import { Link } from 'react-router-dom';
 
 export class searchPlayer extends Component {
@@ -28,21 +27,33 @@ export class searchPlayer extends Component {
       <Fragment>
         <div
           className='container'
-          style={{ marginTop: '85px', marginLeft: '50px' }}
+          style={{ marginTop: '300px', marginLeft: '50px', width: '40%' }}
         >
-          <form>
-            <input
-              type='text'
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
+          <Form className='form'>
+            <Form.Group size='md' controlId='formBasicEmail'>
+              <Form.Label className='form-label'> Username</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder=' Enter Username'
+                value={this.state.value}
+                onChange={this.handleChange}
+                width='200px'
+              />
+              <Form.Text className='text-muted'>
+                We'll never share your username with anyone else.
+              </Form.Text>
+            </Form.Group>
+
             <Link
+              variant='primary'
               to={`/stats/${this.state.value}`}
               className='btn btn-primary mx-auto d-block'
+              style={{ width: '80%', height: '50' }}
             >
-              Search
+              Submit
             </Link>
-          </form>
+          </Form>
+          ;
         </div>
       </Fragment>
     );

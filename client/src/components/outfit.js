@@ -37,7 +37,6 @@ export class outfit extends Component {
             if (error) console.log(error);
 
             const {
-              identifier,
               name,
               description,
               type,

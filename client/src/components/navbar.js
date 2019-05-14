@@ -5,9 +5,9 @@ import '../App.css';
 export default class navbar extends Component {
   render() {
     return (
-      <nav class='navbar navbar-expand-lg navbar-dark bg-primary fixed-top'>
+      <nav className='navbar navbar-expand-lg navbar-dark bg-primary fixed-top'>
         <img
-          class='navbar-brand'
+          className='navbar-brand'
           alt='fortnite'
           href='http://localhost:3000/home'
           src={logo}
@@ -19,7 +19,7 @@ export default class navbar extends Component {
           }}
         />
         <button
-          class='navbar-toggler'
+          className='navbar-toggler'
           type='button'
           data-toggle='collapse'
           data-target='#navbarColor01'
@@ -27,28 +27,31 @@ export default class navbar extends Component {
           aria-expanded='true'
           aria-label='Toggle navigation'
         >
-          <span class='navbar-toggler-icon' />
+          <span className='navbar-toggler-icon' />
         </button>
 
-        <div class='collapse navbar-collapse' id='navbarColor01'>
-          <ul class='navbar-nav mr-auto'>
-            <li class='nav-item active'>
-              <a class='nav-link' href='/home'>
-                Home <span class='sr-only'>(current)</span>
+        <div className='collapse navbar-collapse' id='navbarColor01'>
+          <ul className='navbar-nav mr-auto'>
+            <li className='nav-item active'>
+              <a className='nav-link' href='/home'>
+                Home <span className='sr-only'>(current)</span>
               </a>
             </li>
-            <li class='nav-item'>
-              <a class='nav-link' href='http://localhost:3000/outfits'>
+            <li className='nav-item'>
+              <a className='nav-link' href='http://localhost:3000/outfits'>
                 Outfits
               </a>
             </li>
-            <li class='nav-item'>
-              <a class='nav-link' href='http://localhost:3000/upcoming-items'>
+            <li className='nav-item'>
+              <a
+                className='nav-link'
+                href='http://localhost:3000/upcoming-items'
+              >
                 Upcoming Items
               </a>
             </li>
-            <li class='nav-item'>
-              <a class='nav-link' href='http://localhost:3000/stats'>
+            <li className='nav-item'>
+              <a className='nav-link' href='http://localhost:3000/stats'>
                 Stats
               </a>
             </li>

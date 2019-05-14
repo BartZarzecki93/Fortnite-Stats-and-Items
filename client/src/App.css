@@ -25,7 +25,7 @@
 }
 
 .btn-warning {
-  background-color: rgb(245, 196, 37);
+  background-color: #f1ed62;
   font-size: 20px;
   text-align: center;
   text-decoration: none;
@@ -34,6 +34,7 @@
   cursor: pointer;
   padding: 15px 32px;
   font-family: Anton;
+  color: #111;
 }
 
 .nav-link {
@@ -65,4 +66,17 @@
   margin-top: 300px;
   margin-left: 500px;
   position: float;
+}
+
+.form-group {
+  font-family: Anton;
+}
+.form {
+  background: rgb(190, 183, 183);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.label {
+  text-align: center;
 }

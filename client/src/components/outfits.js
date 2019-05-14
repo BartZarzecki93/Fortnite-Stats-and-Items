@@ -4,7 +4,6 @@ import { Query } from 'react-apollo';
 import OutfitItem from './outfitItem';
 import './outfititem.css';
 import Spinner from 'react-bootstrap/Spinner';
-import vbuck from '../vbuck.png';
 
 const OUTFITS_QUERY = gql`
   query OutfitsQuery {

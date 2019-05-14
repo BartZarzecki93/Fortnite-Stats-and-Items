@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 
@@ -15,15 +13,25 @@ const PLAYER_QUERY = gql`
     }
   }
 `;
+const STATS_QUERY = gql`
+  query StatsQuery($accountId: String) {
+    Stats(accountId: $accountId) {
+      accountId
+      epicName
+      seasonWindow
+    }
+  }
+`;
 
 export class stats extends Component {
   render() {
     let { username } = this.props.match.params;
+
     return (
       <Fragment>
         <div
           className='container'
-          style={{ marginTop: '250px', marginLeft: '50px' }}
+          style={{ marginTop: '150px', marginLeft: '50px' }}
         >
           <h3>Hello</h3>
 
@@ -38,11 +46,38 @@ export class stats extends Component {
               if (error) return console.log(error);
 
               const { uid, username } = data.Player;
+              let accountId = data.Player.uid;
+
               console.log(data);
+
               return (
                 <Fragment>
-                  <h3>uid: {uid}</h3>
+                  <h3>{uid}</h3>
                   <h3>username: {username}</h3>
+
+                  <Query query={STATS_QUERY} variables={{ accountId }}>
+                    {({ loading, error, data }) => {
+                      if (loading)
+                        return (
+                          <div class='loading'>
+                            <Spinner animation='border' variant='light' />
+                          </div>
+                        );
+
+                      if (error) return console.log(error);
+
+                      const { accountId, epicName, seasonWindow } = data.Stats;
+                      console.log(data);
+
+                      return (
+                        <Fragment>
+                          <h3>uid: {accountId}</h3>
+                          <h3>username: {epicName}</h3>
+                          <h3>SeasonWindow: {seasonWindow}</h3>
+                        </Fragment>
+                      );
+                    }}
+                  </Query>
                   <Link
                     to={`/stats/`}
                     className='btn btn-primary mx-auto d-block'

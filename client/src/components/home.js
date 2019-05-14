@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
