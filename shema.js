@@ -29,10 +29,51 @@ const stats = new GraphQLObjectType({
     accountId: { type: GraphQLString },
     epicName: { type: GraphQLString },
     seasonWindow: { type: GraphQLString },
-    fnApiId: { type: GraphQLInt }
+    fnApiId: { type: GraphQLInt },
+    data: { type: KeyboardMouse }
   })
 });
+const KeyboardMouse = new GraphQLObjectType({
+  name: 'KeyboardMouse',
+  fields: () => ({
+    //creating fields that you need from the data base
+    //name and type
+    keyboardmouse: { type: Comp }
 
+    //...
+  })
+});
+const Comp = new GraphQLObjectType({
+  name: 'Comp',
+  fields: () => ({
+    //creating fields that you need from the data base
+    //name and type
+    comp: { type: Solo }
+
+    //...
+  })
+});
+const Solo = new GraphQLObjectType({
+  name: 'Solo',
+  fields: () => ({
+    //creating fields that you need from the data base
+    //name and type
+    solo: { type: Solo1 }
+
+    //...
+  })
+});
+const Solo1 = new GraphQLObjectType({
+  name: 'Solo1',
+  fields: () => ({
+    //creating fields that you need from the data base
+    //name and type
+    placetop1: { type: GraphQLInt },
+    placetop10: { type: GraphQLInt }
+
+    //...
+  })
+});
 const Outfit = new GraphQLObjectType({
   name: 'Items',
   fields: () => ({

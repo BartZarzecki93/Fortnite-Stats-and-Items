@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
+import Chart from 'react-apexcharts';
 
 const PLAYER_QUERY = gql`
   query PlayerQuery($username: String) {
@@ -19,11 +20,62 @@ const STATS_QUERY = gql`
       accountId
       epicName
       seasonWindow
+      data {
+        keyboardmouse {
+          comp {
+            solo {
+              placetop1
+              placetop10
+            }
+          }
+        }
+      }
     }
   }
 `;
 
 export class stats extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: {
+        chart: {
+          background: '#f4f4f4',
+          foreColor: '#333'
+        },
+        xaxis: {
+          categories: ['PalceTop1', 'PlaceTop10']
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false
+          }
+        },
+        fill: {
+          colors: ['#f44336']
+        },
+        dataLabels: {
+          enabled: false
+        },
+        title: {
+          text: 'Largest Cities by Population',
+          align: 'center',
+          margin: 20,
+          offsetY: 20,
+          style: {
+            fontSize: '25px'
+          }
+        }
+      },
+      series: [
+        {
+          name: 'Population',
+          data: ['', 10]
+        }
+      ]
+    };
+  }
+
   render() {
     let { username } = this.props.match.params;
 
@@ -68,12 +120,24 @@ export class stats extends Component {
 
                       const { accountId, epicName, seasonWindow } = data.Stats;
                       console.log(data);
+                      const {
+                        placetop1,
+                        placetop10
+                      } = data.Stats.data.keyboardmouse.comp.solo;
+                      console.log(placetop1);
 
                       return (
                         <Fragment>
                           <h3>uid: {accountId}</h3>
                           <h3>username: {epicName}</h3>
                           <h3>SeasonWindow: {seasonWindow}</h3>
+                          <h3>
+                            Palcetop1:
+                            <span value={this.state.series.data}>
+                              {placetop1},{placetop10}
+                            </span>
+                            {placetop1}
+                          </h3>
                         </Fragment>
                       );
                     }}
@@ -84,6 +148,16 @@ export class stats extends Component {
                   >
                     Back
                   </Link>
+                  <React.Fragment>
+                    <Chart
+                      options={this.state.options}
+                      series={this.state.series}
+                      type='bar'
+                      height='250'
+                      width='70%'
+                    />
+                    <button onClick={this.onClick}>Change The Look</button>
+                  </React.Fragment>
                 </Fragment>
               );
             }}
