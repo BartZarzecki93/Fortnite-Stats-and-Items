@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 import Chart from 'react-apexcharts';
+import '../App.css';
 
 const PLAYER_QUERY = gql`
   query PlayerQuery($username: String) {
@@ -85,83 +86,98 @@ export class stats extends Component {
           className='container'
           style={{ marginTop: '150px', marginLeft: '50px' }}
         >
-          <h3>Hello</h3>
+          <div className='opac'>
+            <h3>Hello</h3>
 
-          <Query query={PLAYER_QUERY} variables={{ username }}>
-            {({ loading, error, data }) => {
-              if (loading)
+            <Query query={PLAYER_QUERY} variables={{ username }}>
+              {({ loading, error, data }) => {
+                if (loading)
+                  return (
+                    <div class='loading'>
+                      <Spinner animation='border' variant='light' />
+                    </div>
+                  );
+                if (error)
+                  return (
+                    <div>
+                      <h3>Player use diffrent platform</h3>
+                    </div>
+                  );
+
+                const { uid, username } = data.Player;
+                let accountId = data.Player.uid;
+
+                console.log(data);
+
                 return (
-                  <div class='loading'>
-                    <Spinner animation='border' variant='light' />
-                  </div>
-                );
-              if (error) return console.log(error);
+                  <Fragment>
+                    <h3>{uid}</h3>
+                    <h3>username: {username}</h3>
 
-              const { uid, username } = data.Player;
-              let accountId = data.Player.uid;
+                    <Query query={STATS_QUERY} variables={{ accountId }}>
+                      {({ loading, error, data }) => {
+                        if (loading)
+                          return (
+                            <div class='loading'>
+                              <Spinner animation='border' variant='light' />
+                            </div>
+                          );
 
-              console.log(data);
+                        if (error)
+                          return (
+                            <div>
+                              <h3>Player use diffrent platform</h3>
+                            </div>
+                          );
 
-              return (
-                <Fragment>
-                  <h3>{uid}</h3>
-                  <h3>username: {username}</h3>
+                        const {
+                          accountId,
+                          epicName,
+                          seasonWindow
+                        } = data.Stats;
+                        console.log(data);
+                        const {
+                          placetop1,
+                          placetop10
+                        } = data.Stats.data.keyboardmouse.comp.solo;
+                        console.log(placetop1);
 
-                  <Query query={STATS_QUERY} variables={{ accountId }}>
-                    {({ loading, error, data }) => {
-                      if (loading)
                         return (
-                          <div class='loading'>
-                            <Spinner animation='border' variant='light' />
-                          </div>
+                          <Fragment>
+                            <h3>uid: {accountId}</h3>
+                            <h3>username: {epicName}</h3>
+                            <h3>SeasonWindow: {seasonWindow}</h3>
+                            <h3>
+                              Palcetop1:
+                              <span>
+                                {placetop1},{placetop10}
+                              </span>
+                              {placetop1}
+                            </h3>
+                          </Fragment>
                         );
-
-                      if (error) return console.log(error);
-
-                      const { accountId, epicName, seasonWindow } = data.Stats;
-                      console.log(data);
-                      const {
-                        placetop1,
-                        placetop10
-                      } = data.Stats.data.keyboardmouse.comp.solo;
-                      console.log(placetop1);
-
-                      return (
-                        <Fragment>
-                          <h3>uid: {accountId}</h3>
-                          <h3>username: {epicName}</h3>
-                          <h3>SeasonWindow: {seasonWindow}</h3>
-                          <h3>
-                            Palcetop1:
-                            <span value={this.state.series.data}>
-                              {placetop1},{placetop10}
-                            </span>
-                            {placetop1}
-                          </h3>
-                        </Fragment>
-                      );
-                    }}
-                  </Query>
-                  <Link
-                    to={`/stats/`}
-                    className='btn btn-primary mx-auto d-block'
-                  >
-                    Back
-                  </Link>
-                  <React.Fragment>
-                    <Chart
-                      options={this.state.options}
-                      series={this.state.series}
-                      type='bar'
-                      height='250'
-                      width='70%'
-                    />
-                    <button onClick={this.onClick}>Change The Look</button>
-                  </React.Fragment>
-                </Fragment>
-              );
-            }}
-          </Query>
+                      }}
+                    </Query>
+                    <Link
+                      to={`/stats/`}
+                      className='btn btn-primary mx-auto d-block'
+                    >
+                      Back
+                    </Link>
+                    <React.Fragment>
+                      <Chart
+                        options={this.state.options}
+                        series={this.state.series}
+                        type='bar'
+                        height='250'
+                        width='70%'
+                      />
+                    </React.Fragment>
+                  </Fragment>
+                );
+              }}
+            </Query>
+          </div>
         </div>
       </Fragment>
     );

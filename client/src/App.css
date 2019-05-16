@@ -80,3 +80,11 @@
 .label {
   text-align: center;
 }
+
+.opac {
+  background-color: grey;
+  filter: alpha(opacity=50);
+  border: 1px solid black;
+  margin: 3px;
+  border-radius: 0.25rem;
+}
