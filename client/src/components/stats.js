@@ -59,7 +59,7 @@ export class stats extends Component {
           enabled: false
         },
         title: {
-          text: 'Largest Cities by Population',
+          text: 'Player Stats',
           align: 'center',
           margin: 20,
           offsetY: 20,
@@ -71,7 +71,7 @@ export class stats extends Component {
       series: [
         {
           name: 'Population',
-          data: ['', 10]
+          data: [10, 20]
         }
       ]
     };
@@ -86,98 +86,110 @@ export class stats extends Component {
           className='container'
           style={{ marginTop: '150px', marginLeft: '50px' }}
         >
-          <div className='opac'>
-            <h3>Hello</h3>
-
-            <Query query={PLAYER_QUERY} variables={{ username }}>
-              {({ loading, error, data }) => {
-                if (loading)
-                  return (
-                    <div class='loading'>
-                      <Spinner animation='border' variant='light' />
-                    </div>
-                  );
-                if (error)
-                  return (
-                    <div>
-                      <h3>Player use diffrent platform</h3>
-                    </div>
-                  );
-
-                const { uid, username } = data.Player;
-                let accountId = data.Player.uid;
-
-                console.log(data);
-
+          <Query query={PLAYER_QUERY} variables={{ username }}>
+            {({ loading, error, data }) => {
+              if (loading)
                 return (
-                  <Fragment>
-                    <h3>{uid}</h3>
-                    <h3>username: {username}</h3>
-
-                    <Query query={STATS_QUERY} variables={{ accountId }}>
-                      {({ loading, error, data }) => {
-                        if (loading)
-                          return (
-                            <div class='loading'>
-                              <Spinner animation='border' variant='light' />
-                            </div>
-                          );
-
-                        if (error)
-                          return (
-                            <div>
-                              <h3>Player use diffrent platform</h3>
-                            </div>
-                          );
-
-                        const {
-                          accountId,
-                          epicName,
-                          seasonWindow
-                        } = data.Stats;
-                        console.log(data);
-                        const {
-                          placetop1,
-                          placetop10
-                        } = data.Stats.data.keyboardmouse.comp.solo;
-                        console.log(placetop1);
-
-                        return (
-                          <Fragment>
-                            <h3>uid: {accountId}</h3>
-                            <h3>username: {epicName}</h3>
-                            <h3>SeasonWindow: {seasonWindow}</h3>
-                            <h3>
-                              Palcetop1:
-                              <span>
-                                {placetop1},{placetop10}
-                              </span>
-                              {placetop1}
-                            </h3>
-                          </Fragment>
-                        );
-                      }}
-                    </Query>
-                    <Link
-                      to={`/stats/`}
-                      className='btn btn-primary mx-auto d-block'
-                    >
-                      Back
-                    </Link>
-                    <React.Fragment>
-                      <Chart
-                        options={this.state.options}
-                        series={this.state.series}
-                        type='bar'
-                        height='250'
-                        width='70%'
-                      />
-                    </React.Fragment>
-                  </Fragment>
+                  <div class='loading'>
+                    <Spinner animation='border' variant='light' />
+                  </div>
                 );
-              }}
-            </Query>
-          </div>
+              if (error)
+                return (
+                  <div>
+                    <h3>Player use diffrent platform</h3>
+                  </div>
+                );
+
+              const { uid, username } = data.Player;
+              let accountId = data.Player.uid;
+
+              console.log(data);
+
+              return (
+                <Fragment>
+                  <Query query={STATS_QUERY} variables={{ accountId }}>
+                    {({ loading, error, data }) => {
+                      if (loading)
+                        return (
+                          <div class='loading'>
+                            <Spinner animation='border' variant='light' />
+                          </div>
+                        );
+
+                      if (error)
+                        return (
+                          <div>
+                            <h3>Player use diffrent platform</h3>
+                          </div>
+                        );
+
+                      const { epicName } = data.Stats;
+                      console.log(data);
+
+                      const {
+                        placetop1,
+                        placetop10
+                      } = data.Stats.data.keyboardmouse.comp.solo;
+                      console.log(placetop1);
+                      console.log(this.state.series);
+                      var series1 = [
+                        { name: 'Player', data: [placetop1, placetop10] }
+                      ];
+                      console.log(series1);
+                      return (
+                        <Fragment>
+                          <div
+                            class='card mb-3'
+                            style={{
+                              width: '80%',
+                              height: '70%',
+                              display: 'block',
+                              alignItems: 'center'
+                            }}
+                          >
+                            <h3 class='card-header text-center '>{epicName}</h3>
+                            <br />
+
+                            <div class='card-body'>
+                              <h5 class='card-title text-center'>
+                                Description
+                              </h5>
+
+                              <ul class='list-group list-group-flush'>
+                                <li class='list-group-item text-center'>
+                                  Top 1: {placetop1}
+                                </li>
+                                <li class='list-group-item text-center'>
+                                  Top 10: {placetop10}
+                                </li>
+                              </ul>
+                              <br />
+                              <React.Fragment>
+                                <Chart
+                                  options={this.state.options}
+                                  series={series1}
+                                  type='bar'
+                                  height='250'
+                                  width='70%'
+                                />
+                              </React.Fragment>
+                              <Link
+                                to={`/stats/`}
+                                className='btn btn-primary mx-auto d-block'
+                              >
+                                Back
+                              </Link>
+                            </div>
+                          </div>
+                        </Fragment>
+                      );
+                    }}
+                  </Query>
+                </Fragment>
+              );
+            }}
+          </Query>
         </div>
       </Fragment>
     );
