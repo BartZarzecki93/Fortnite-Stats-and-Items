@@ -6,10 +6,13 @@ import '../App.css';
 
 import { Link } from 'react-router-dom';
 
+const baseURL =
+  'https://fortnite-public-api.theapinetwork.com/prod09/item/get?ids=';
+
 export class searchPlayer extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: '', search: '', results: [] };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

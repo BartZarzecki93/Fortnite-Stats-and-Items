@@ -94,7 +94,7 @@ export class stats extends Component {
                     <Spinner animation='border' variant='light' />
                   </div>
                 );
-              if (error)
+              if (data.Player == null)
                 return (
                   <div>
                     <h3>Player use diffrent platform</h3>
@@ -103,9 +103,9 @@ export class stats extends Component {
 
               const { uid, username } = data.Player;
               let accountId = data.Player.uid;
-
+              console.log(accountId ? accountId : 'no players');
+              console.log('First Query');
               console.log(data);
-
               return (
                 <Fragment>
                   <Query query={STATS_QUERY} variables={{ accountId }}>
@@ -117,10 +117,20 @@ export class stats extends Component {
                           </div>
                         );
 
-                      if (error)
+                      if (
+                        data.Stats.data.keyboardmouse == null ||
+                        data.Stats.data.keyboardmouse.comp == null ||
+                        data.Stats.data.keyboardmouse.comp.solo == null
+                      )
                         return (
                           <div>
-                            <h3>Player use diffrent platform</h3>
+                            <h3>Player does not use keyboard and mouse</h3>
+                            <Link
+                              to={`/stats/`}
+                              className='btn btn-primary mx-auto d-block'
+                            >
+                              Back
+                            </Link>
                           </div>
                         );
 
@@ -131,12 +141,25 @@ export class stats extends Component {
                         placetop1,
                         placetop10
                       } = data.Stats.data.keyboardmouse.comp.solo;
+
+                      console.log(
+                        data.Stats.data.keyboardmouse
+                          ? data.Stats.data.keyboardmouse
+                          : 'no players'
+                      );
+
                       console.log(placetop1);
                       console.log(this.state.series);
                       var series1 = [
                         { name: 'Player', data: [placetop1, placetop10] }
                       ];
                       console.log(series1);
+                      console.log(placetop1 ? placetop1 : 'there is not ');
+                      console.log(
+                        data.Stats.data.keyboardmouse.comp
+                          ? data.Stats.data.keyboardmouse.comp
+                          : 'there is not '
+                      );
                       return (
                         <Fragment>
                           <div
