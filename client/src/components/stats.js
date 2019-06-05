@@ -21,6 +21,11 @@ const STATS_QUERY = gql`
       accountId
       epicName
       seasonWindow
+      overallData {
+        defaultModes {
+          kills
+        }
+      }
       data {
         keyboardmouse {
           comp {
@@ -45,7 +50,7 @@ export class stats extends Component {
           foreColor: '#333'
         },
         xaxis: {
-          categories: ['PalceTop1', 'PlaceTop10']
+          categories: ['PalceTop1', 'PlaceTop10', 'kills']
         },
         plotOptions: {
           bar: {
@@ -141,7 +146,8 @@ export class stats extends Component {
                         placetop1,
                         placetop10
                       } = data.Stats.data.keyboardmouse.comp.solo;
-
+                      const { kills } = data.Stats.overallData.defaultModes;
+                      console.log(kills);
                       console.log(
                         data.Stats.data.keyboardmouse
                           ? data.Stats.data.keyboardmouse
@@ -151,7 +157,7 @@ export class stats extends Component {
                       console.log(placetop1);
                       console.log(this.state.series);
                       var series1 = [
-                        { name: 'Player', data: [placetop1, placetop10] }
+                        { name: 'Player', data: [placetop1, placetop10, kills] }
                       ];
                       console.log(series1);
                       console.log(placetop1 ? placetop1 : 'there is not ');

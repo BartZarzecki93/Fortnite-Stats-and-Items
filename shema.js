@@ -30,7 +30,28 @@ const stats = new GraphQLObjectType({
     epicName: { type: GraphQLString },
     seasonWindow: { type: GraphQLString },
     fnApiId: { type: GraphQLInt },
-    data: { type: KeyboardMouse }
+    data: { type: KeyboardMouse },
+    overallData: { type: defaultModes }
+  })
+});
+const defaultModes = new GraphQLObjectType({
+  name: 'DefaultModes',
+  fields: () => ({
+    //creating fields that you need from the data base
+    //name and type
+    defaultModes: { type: Kills }
+
+    //...
+  })
+});
+const Kills = new GraphQLObjectType({
+  name: 'Kills',
+  fields: () => ({
+    //creating fields that you need from the data base
+    //name and type
+    kills: { type: GraphQLInt }
+
+    //...
   })
 });
 const KeyboardMouse = new GraphQLObjectType({
@@ -43,6 +64,7 @@ const KeyboardMouse = new GraphQLObjectType({
     //...
   })
 });
+
 const Comp = new GraphQLObjectType({
   name: 'Comp',
   fields: () => ({
