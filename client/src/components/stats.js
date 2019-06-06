@@ -99,10 +99,16 @@ export class stats extends Component {
                     <Spinner animation='border' variant='light' />
                   </div>
                 );
-              if (data.Player == null)
+              if (data.Player.uid == null)
                 return (
                   <div>
-                    <h3>Player use diffrent platform</h3>
+                    <h3>Player does not exists</h3>
+                    <Link
+                      to={`/stats/`}
+                      className='btn btn-primary mx-auto d-block'
+                    >
+                      Back
+                    </Link>
                   </div>
                 );
 
@@ -121,7 +127,9 @@ export class stats extends Component {
                             <Spinner animation='border' variant='light' />
                           </div>
                         );
-
+                      const { kills } = data.Stats.overallData.defaultModes;
+                      const { epicName } = data.Stats;
+                      console.log(kills);
                       if (
                         data.Stats.data.keyboardmouse == null ||
                         data.Stats.data.keyboardmouse.comp == null ||
@@ -129,30 +137,54 @@ export class stats extends Component {
                       )
                         return (
                           <div>
-                            <h3>Player does not use keyboard and mouse</h3>
-                            <Link
-                              to={`/stats/`}
-                              className='btn btn-primary mx-auto d-block'
+                            <div
+                              class='card mb-3'
+                              style={{
+                                width: '80%',
+                                height: '70%',
+                                display: 'block',
+                                alignItems: 'center'
+                              }}
                             >
-                              Back
-                            </Link>
+                              <h3 class='card-header text-center '>
+                                {epicName}
+                              </h3>
+                              <br />
+
+                              <div class='card-body'>
+                                <h5 class='card-title text-center'>
+                                  Description
+                                </h5>
+
+                                <ul class='list-group list-group-flush'>
+                                  <li class='list-group-item text-center'>
+                                    Kills: {kills}
+                                  </li>
+                                  <li class='list-group-item text-center'>
+                                    Top 10:
+                                  </li>
+                                </ul>
+                                <br />
+
+                                <Link
+                                  to={`/stats/`}
+                                  className='btn btn-primary mx-auto d-block'
+                                >
+                                  Back
+                                </Link>
+                              </div>
+                            </div>
                           </div>
                         );
 
-                      const { epicName } = data.Stats;
                       console.log(data);
 
                       const {
                         placetop1,
                         placetop10
                       } = data.Stats.data.keyboardmouse.comp.solo;
-                      const { kills } = data.Stats.overallData.defaultModes;
+
                       console.log(kills);
-                      console.log(
-                        data.Stats.data.keyboardmouse
-                          ? data.Stats.data.keyboardmouse
-                          : 'no players'
-                      );
 
                       console.log(placetop1);
                       console.log(this.state.series);
