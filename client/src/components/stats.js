@@ -161,7 +161,7 @@ export class stats extends Component {
                                     Kills: {kills}
                                   </li>
                                   <li class='list-group-item text-center'>
-                                    Top 10:
+                                    Outlived:
                                   </li>
                                 </ul>
                                 <br />

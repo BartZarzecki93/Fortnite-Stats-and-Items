@@ -55,6 +55,11 @@ export default class navbar extends Component {
                 Stats
               </a>
             </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='http://localhost:3000/reacthooks'>
+                Hooks
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
